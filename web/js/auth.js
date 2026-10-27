@@ -13,12 +13,12 @@ export function initLogin() {
         const password = document.getElementById('password').value;
 
         try {
-            // 파이어베이스 이메일/비밀번호 로그인 시도
+            // 파이어베이스 로그인 실행
             await signInWithEmailAndPassword(auth, email, password);
             alert("환영합니다, 선생님! 로그인에 성공했습니다.");
             
-            // 로그인 성공 후 이동할 대시보드 페이지 경로 (필요시 수정)
-            // window.location.href = 'dashboard.html';
+            // 로그인 성공 후 대시보드(관리자 메인 화면)로 이동!
+            window.location.href = 'dashboard.html';
             
         } catch (error) {
             console.error("로그인 에러:", error);

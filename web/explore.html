@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탐탐스터디 - 구경하기</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .explore-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .explore-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .explore-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        .explore-header p {
+            color: #d8f3dc;
+            font-size: 1rem;
+        }
+        /* 12개의 버튼을 깔끔하게 배치하는 그리드 시스템 */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .grid-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 15px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .grid-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #d8f3dc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="explore-container">
+        <div class="explore-header">
+            <h2>✨ 탐탐스터디 둘러보기</h2>
+            <p>준비된 다양한 콘텐츠와 기능을 자유롭게 구경해보세요!</p>
+        </div>
+        
+        <!-- 12개의 메뉴 버튼 영역 -->
+        <div class="button-grid">
+            <a href="#" class="grid-btn" onclick="alert('학습 현황 페이지는 준비 중입니다.'); return false;">📊 학습 현황</a>
+            <a href="#" class="grid-btn" onclick="alert('공지사항 페이지는 준비 중입니다.'); return false;">📢 공지사항</a>
+            <a href="#" class="grid-btn" onclick="alert('스케줄 페이지는 준비 중입니다.'); return false;">📅 스케줄/시간표</a>
+            <a href="#" class="grid-btn" onclick="alert('과제 게시판은 준비 중입니다.'); return false;">📝 과제 게시판</a>
+            <a href="#" class="grid-btn" onclick="alert('퀴즈 모음 페이지는 준비 중입니다.'); return false;">❓ 퀴즈 모음</a>
+            <a href="#" class="grid-btn" onclick="alert('성적 분석 페이지는 준비 중입니다.'); return false;">📈 성적 분석</a>
+            <a href="#" class="grid-btn" onclick="alert('출석 체크 페이지는 준비 중입니다.'); return false;">✅ 출석 체크</a>
+            <a href="#" class="grid-btn" onclick="alert('학습 자료실은 준비 중입니다.'); return false;">📂 학습 자료실</a>
+            <a href="#" class="grid-btn" onclick="alert('AI 튜터 페이지는 준비 중입니다.'); return false;">🤖 AI 튜터</a>
+            <a href="#" class="grid-btn" onclick="alert('Q&A 소통방은 준비 중입니다.'); return false;">💬 Q&A 소통</a>
+            <a href="#" class="grid-btn" onclick="alert('모의고사 페이지는 준비 중입니다.'); return false;">📑 모의고사 실전</a>
+            <a href="#" class="grid-btn" onclick="alert('마이페이지는 준비 중입니다.'); return false;">👤 마이페이지</a>
+        </div>
+
+        <a href="../index.html" class="back-link">← 메인 화면으로 돌아가기</a>
+    </div>
+</body>
+</html>
