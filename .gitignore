@@ -1,0 +1,6 @@
+# .gitignore 파일 내용
+serviceAccountKey.json
+__pycache__/
+*.pyc
+.env
+node_modules/
