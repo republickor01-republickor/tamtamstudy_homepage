@@ -3,254 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TAMTAM STUDY</title>
-    <style>
-        /* 화면이 흔들리지 않도록 전체 레이아웃 고정 */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html, body {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #1a252f);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* 메인 컨테이너 */
-        .main-container {
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* 타이틀 스타일 */
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-            color: #f1c40f;
-        }
-        p.subtitle {
-            font-size: 1.1rem;
-            color: #ecf0f1;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        /* 로그인 정보 영역 */
-        #user-info {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: #2ecc71;
-            font-weight: bold;
-        }
-
-        /* 입력 폼 스타일 */
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: 1px solid #bdc3c7;
-            background-color: #ecf0f1;
-            color: #2c3e50;
-        }
-
-        /* 버튼 배치 영역 */
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        /* 링크 버튼 스타일 */
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #3498db;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: #2ecc71;
-        }
-
-        .btn-secondary:hover {
-            background-color: #27ae60;
-        }
-
-        .btn-danger {
-            background-color: #e74c3c;
-        }
-        .btn-danger:hover {
-            background-color: #c0392b;
-        }
-
-        /* 숨김 처리 클래스 */
-        .hidden {
-            display: none !important;
-        }
-
-        /* 하단 카피라이트 */
-        footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.85rem;
-            color: #95a5a6;
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 2.2rem; }
-            p.subtitle { font-size: 1rem; margin-bottom: 20px; }
-            .btn { padding: 15px; font-size: 1.1rem; }
-        }
-    </style>
-
-    <!-- Firebase SDK (v10 모듈러 버전) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // 🔥 본인의 파이어베이스 프로젝트 설정값으로 교체해주세요!
-        const firebaseConfig = {
-            apiKey: "AIzaSyC32dXr4l_NBy8n6Z-TuM67UEyK_hWxCU4",
-            authDomain: "mathjusttry-form.firebaseapp.com",
-            projectId: "mathjusttry-form",
-            storageBucket: "mathjusttry-form.firebasestorage.app",
-            messagingSenderId: "15276089610",
-            appId: "1:15276089610:web:12e8447065b3f9effbdaf3"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const loginSection = document.getElementById('login-section');
-        const contentGroup = document.getElementById('content-group');
-        const userInfoText = document.getElementById('user-info');
-        
-        const emailInput = document.getElementById('email-input');
-        const passwordInput = document.getElementById('password-input');
-
-        // 이메일/비밀번호 로그인 실행
-        window.loginWithEmail = async function() {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            if (!email || !password) {
-                alert("이메일과 비밀번호를 모두 입력해주세요.");
-                return;
-            }
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (error) {
-                console.error("로그인 에러:", error);
-                alert("로그인 실패: 이메일 또는 비밀번호를 확인해주세요.");
-            }
-        };
-
-        // 로그아웃 실행
-        window.logoutUser = async function() {
-            await signOut(auth);
-        };
-
-        // 로그인 상태 감지 및 화면 제어
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                // 로그인 된 상태
-                loginSection.classList.add('hidden');
-                contentGroup.classList.remove('hidden');
-
-                // Firestore 'teacher_ID' 컬렉션에서 현재 이메일과 일치하는 선생님 정보 찾기
-                try {
-                    const q = query(collection(db, "teacher_ID"), where("email", "==", user.email));
-                    const querySnapshot = await getDocs(q);
-                    
-                    if (!querySnapshot.empty) {
-                        querySnapshot.forEach((doc) => {
-                            const teacherData = doc.data();
-                            userInfoText.innerText = `${teacherData.선생님이름} 선생님 환영합니다!`;
-                        });
-                    } else {
-                        userInfoText.innerText = `${user.email} (선생님 프로필 정보 연동 필요)`;
-                    }
-                } catch (e) {
-                    console.error("데이터 로드 실패:", e);
-                    userInfoText.innerText = `${user.email}님 환영합니다.`;
-                }
-
-            } else {
-                // 로그아웃 된 상태
-                loginSection.classList.remove('hidden');
-                contentGroup.classList.add('hidden');
-                userInfoText.innerText = "선생님 로그인이 필요합니다.";
-                emailInput.value = "";
-                passwordInput.value = "";
-            }
-        });
-    </script>
+    <title>탐탐스터디 - 선생님 로그인</title>
+    <!-- 공통 스타일 적용 -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="main-container">
-        <h1>TAMTAM STUDY</h1>
-        <p class="subtitle">공부는 그냥 해보는 거야</p>
-
-        <!-- 로그인 상태 표시 -->
-        <div id="user-info">로그인 확인 중...</div>
-
-        <!-- 로그인 입력 영역 (로그인 전 표시) -->
-        <div id="login-section" class="login-form hidden">
-            <input type="email" id="email-input" class="input-field" placeholder="선생님 이메일 (예: tamtamteacher00@tamtamstudy.com)">
-            <input type="password" id="password-input" class="input-field" placeholder="비밀번호">
-            <button onclick="loginWithEmail()" class="btn">로그인</button>
-        </div>
-
-        <!-- 로그인 전용 콘텐츠 그룹 (로그인 후 표시) -->
-        <div id="content-group" class="button-group hidden">
-            <a href="https://naver.me/xHEthm8O" class="btn">예비 초등 3학년 설문조사</a>
-            <a href="https://form.naver.com/response/93lyaq2eGKQ" class="btn btn-secondary">1:1 맞춤 학습 상담 신청서</a>
-            <button onclick="logoutUser()" class="btn btn-danger" style="margin-top: 10px;">로그아웃</button>
-        </div>
+    <div class="card">
+        <h2>Teacher Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="email">선생님 이메일</label>
+                <input type="email" id="email" required placeholder="example@tamtamstudy.com">
+            </div>
+            <div class="input-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" required placeholder="비밀번호를 입력하세요">
+            </div>
+            <button type="submit" class="btn">로그인</button>
+            <div id="error-message"></div>
+        </form>
+        <a href="../index.html" class="back-link">← 메인 화면으로 돌아가기</a>
     </div>
 
-    <footer>
-        &copy; TAMTAM STUDY. All rights reserved.
-    </footer>
-
+    <!-- 로그인 기능 모듈 실행 스크립트 -->
+    <script type="module">
+        import { initLogin } from './js/auth.js';
+        initLogin();
+    </script>
 </body>
 </html>
