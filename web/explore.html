@@ -4,121 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탐탐스터디 - 구경하기</title>
+    <!-- 외부 스타일시트 연결 (경로가 다를 경우 맞춰서 조정해주세요) -->
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* 모바일 주소창 이슈 해결을 위한 전체 화면 및 중앙 정렬 구조 */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            min-height: 100dvh; /* 모바일 브라우저 주소창 영역 대응 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        .explore-container {
-            width: 100%;
-            max-width: 900px;
-            max-height: 90vh; /* 모바일 화면을 넘지 않도록 제한 */
-            max-height: 90dvh;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-        }
-
-        .explore-header {
-            text-align: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-        .explore-header h2 {
-            font-size: 1.75rem;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-        .explore-header p {
-            color: #d8f3dc;
-            font-size: 0.95rem;
-        }
-
-        /* 5가지 핵심 메뉴 버튼 영역 (추후 늘어나면 스크롤되도록 설정) */
-        .button-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto; /* 메뉴가 많아지면 내부 스크롤 생성 */
-            padding-right: 5px;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        /* 스크롤바 디자인 (선택 사항) */
-        .button-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-        .button-grid::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-        }
-
-        .grid-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 16px 15px;
-            border-radius: 12px;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            flex-shrink: 0;
-        }
-        .grid-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .back-link {
-            display: block;
-            text-align: center;
-            color: #d8f3dc;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            flex-shrink: 0;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <div class="explore-container">
         <div class="explore-header">
             <h2>✨ 탐탐스터디 둘러보기</h2>
-            <p>핵심 콘텐츠 5가지를 자유롭게 구경해보세요!</p>
+            <p>핵심 콘텐츠를 자유롭게 구경해보세요!</p>
         </div>
         
-        <!-- 핵심 5가지 메뉴 버튼 영역 (추후 개수가 늘어나도 스크롤로 처리됨) -->
+        <!-- 메뉴 버튼 영역 (5가지 핵심 + 추후 스크롤 대응) -->
         <div class="button-grid">
-            <a href="#" class="grid-btn" onclick="alert('학습 현황 페이지는 준비 중입니다.'); return false;">📊 학습 현황</a>
-            <a href="#" class="grid-btn" onclick="alert('공지사항 페이지는 준비 중입니다.'); return false;">📢 공지사항</a>
-            <a href="#" class="grid-btn" onclick="alert('스케줄 페이지는 준비 중입니다.'); return false;">📅 스케줄/시간표</a>
-            <a href="#" class="grid-btn" onclick="alert('출석 체크 페이지는 준비 중입니다.'); return false;">✅ 출석 체크</a>
-            <a href="#" class="grid-btn" onclick="alert('마이페이지는 준비 중입니다.'); return false;">👤 마이페이지</a>
+            <a href="https://blog.naver.com/tamtamedu" target="_blank" class="grid-btn">📝 탐탐에듀 블로그</a>
+            <a href="http://www.youtube.com/@%EC%9D%80%ED%95%98%EC%88%98-k7w" target="_blank" class="grid-btn">📺 은하수 유튜브</a>
+            <a href="#" class="grid-btn disabled">📅 스케줄/시간표 (준비중)</a>
+            <a href="#" class="grid-btn disabled">✅ 출석 체크 (준비중)</a>
+            <a href="#" class="grid-btn disabled">👤 마이페이지 (준비중)</a>
         </div>
 
         <a href="../index.html" class="back-link">← 메인 화면으로 돌아가기</a>

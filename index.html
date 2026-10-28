@@ -4,114 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAMTAM STUDY - 방문을 환영합니다</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Malgun Gothic', sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #1e5d77 0%, #113f52 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .main-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 50px 30px;
-            width: 100%;
-            max-width: 520px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-        .welcome-header h1 {
-            font-size: 2.3rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .welcome-header p {
-            font-size: 1.25rem;
-            color: #d8f3dc;
-            margin-bottom: 35px;
-            font-weight: 500;
-        }
-        .explore-section {
-            margin-bottom: 40px;
-        }
-        .btn-explore {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            padding: 14px 32px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1.05rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .btn-explore:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-        .login-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        /* 태블릿 및 PC 화면에서는 버튼들을 가로로 나란히 배치 */
-        @media (min-width: 500px) {
-            .login-buttons {
-                flex-direction: row;
-            }
-        }
-        .btn-login {
-            flex: 1;
-            padding: 14px 10px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            text-align: center;
-        }
-        /* 선생님 로그인 버튼 (강조) */
-        .btn-teacher {
-            background-color: #4ea8de;
-            color: white;
-            border: 1px solid #319795;
-        }
-        .btn-teacher:hover {
-            background-color: #319795;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-        }
-        /* 학생/부모님 로그인 버튼 (추후 오픈용 준비 스타일) */
-        .btn-student, .btn-parent {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .btn-student:hover, .btn-parent:hover {
-            background-color: rgba(255, 255, 255, 0.22);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-    </style>
+    <!-- 외부 스타일시트 연결 -->
+    <link rel="stylesheet" href="web/css/style.css"> 
 </head>
 <body>
     <div class="main-container">
@@ -125,7 +19,6 @@
         </div>
 
         <div class="login-buttons">
-            <!-- 요청하신 대로 web/teacherlogin.html 로 정확히 연결 -->
             <a href="web/teacherlogin.html" class="btn-login btn-teacher">선생님 로그인</a>
             <a href="#" class="btn-login btn-student" onclick="alert('학생 로그인 기능은 추후 오픈 예정입니다.'); return false;">학생 로그인</a>
             <a href="#" class="btn-login btn-parent" onclick="alert('부모님 로그인 기능은 추후 오픈 예정입니다.'); return false;">부모님 로그인</a>
