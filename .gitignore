@@ -1,6 +1,7 @@
 # .gitignore 파일 내용
 serviceAccountKey.json
 admin.txt
+tamtamhomepage.pptx
 __pycache__/
 *.pyc
 .env
