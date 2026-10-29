@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탐탐스터디 - 구경하기</title>
     <!-- 외부 스타일시트 연결 (경로가 다를 경우 맞춰서 조정해주세요) -->
+    <script>
+        (function() {
+            const isGitHub = window.location.hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인 레포지토리 이름
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="/web/css/style.css">
 </head>
 <body>

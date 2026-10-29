@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAMTAM STUDY - 방문을 환영합니다</title>
+     <!-- 공통 루트 경로 설정 -->
+    <!-- 👇 이 스크립트 하나면 경로 고민 끝! -->
+    <script>
+        (function() {
+            const isGitHub = window.location.hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인 레포지토리 이름
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
+    </script>
     <!-- 외부 스타일시트 연결 -->
-    <link rel="stylesheet" href="web/css/style.css"> 
+    <link rel="stylesheet" href="/web/css/style.css">
 </head>
 <body>
     <div class="main-container">
@@ -15,11 +28,11 @@
         </div>
 
         <div class="explore-section">
-            <a href="web/explore.html" class="btn-explore">구경하기</a>
+            <a href="/web/explore.html" class="btn-explore">구경하기</a>
         </div>
 
         <div class="login-buttons">
-            <a href="web/teacherlogin.html" class="btn-login btn-teacher">선생님 로그인</a>
+            <a href="/web/teacherlogin.html" class="btn-login btn-teacher">선생님 로그인</a>
             <a href="#" class="btn-login btn-student" onclick="alert('학생 로그인 기능은 추후 오픈 예정입니다.'); return false;">학생 로그인</a>
             <a href="#" class="btn-login btn-parent" onclick="alert('부모님 로그인 기능은 추후 오픈 예정입니다.'); return false;">부모님 로그인</a>
         </div>
