@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탐탐스터디 - 동적 통합 홈</title>
+    <!-- 공통 스타일 경로 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 부드러운 스크롤 설정 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            display: block;
+            margin: 0;
+            padding-top: 80px; /* 상단 고정 네비게이션 공간 확보 */
+        }
+
+        /* 상단 고정 네비게이션 바 */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(17, 63, 82, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            flex-wrap: wrap;
+        }
+
+        .top-nav a {
+            color: #d8f3dc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* 각 섹션 영역 설정 */
+        .page-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 고정 네비게이션 -->
+    <nav class="top-nav">
+        <a href="#section1">메인 홈</a>
+        <a href="#section2">둘러보기</a>
+        <a href="#section3">선생님 로그인</a>
+        <a href="../../index.html">← 최상위 메인으로</a>
+    </nav>
+
+    <!-- 1섹션: 메인 홈 -->
+    <section id="section1" class="page-section">
+        <div class="main-container">
+            <div class="welcome-header">
+                <h1>탐탐스터디</h1>
+                <p>스마트한 학습 관리의 시작점</p>
+            </div>
+            <div class="explore-section">
+                <a href="#section2" class="btn-explore">콘텐츠 둘러보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2섹션: explore.html 파일을 자동으로 불러와서 채울 공간 -->
+    <section id="section2" class="page-section">
+        <div id="explore-wrapper">
+            <p style="color: #d8f3dc; text-align: center;">둘러보기 페이지를 불러오는 중...</p>
+        </div>
+    </section>
+
+    <!-- 3섹션: teacher_login.html 파일을 자동으로 불러와서 채울 공간 -->
+    <section id="section3" class="page-section">
+        <div id="login-wrapper">
+            <p style="color: #d8f3dc; text-align: center;">로그인 페이지를 불러오는 중...</p>
+        </div>
+    </section>
+
+    <!-- 다른 HTML 파일을 읽어와서 꽂아넣는 자바스크립트 -->
+    <script>
+        async function loadExternalHTML(url, targetId, selector) {
+            try {
+                const response = await fetch(url);
+                const htmlText = await response.text();
+                
+                // 가져온 HTML 문자열을 분석용 DOM으로 변환
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                
+                // 해당 파일 안에서 원하는 요소(.explore-container 또는 .card 등)만 쏙 뽑아냄
+                const targetElement = doc.querySelector(selector);
+                const targetContainer = document.getElementById(targetId);
+                
+                if (targetElement && targetContainer) {
+                    targetContainer.innerHTML = ''; // "불러오는 중..." 문구 제거
+                    targetContainer.appendChild(targetElement);
+                } else {
+                    targetContainer.innerHTML = '<p style="color: #ff8787;">요소를 찾지 못했습니다.</p>';
+                }
+            } catch (error) {
+                console.error('로드 실패:', error);
+                document.getElementById(targetId).innerHTML = '<p style="color: #ff8787;">파일을 불러오는 중 오류가 발생했습니다.</p>';
+            }
+        }
+
+        // 페이지가 열리면 각각의 파일 경로와 가져올 핵심 상자 클래스를 지정해 실행
+        window.addEventListener('DOMContentLoaded', () => {
+            // web/explore.html 파일에서 .explore-container 박스만 가져와서 section2에 넣기
+            loadExternalHTML('../explore.html', 'explore-wrapper', '.explore-container');
+            
+            // web/teacher_login.html 파일에서 .card 박스만 가져와서 section3에 넣기
+            loadExternalHTML('../teacherlogin.html', 'login-wrapper', '.card');
+        });
+    </script>
+
+</body>
+</html>
