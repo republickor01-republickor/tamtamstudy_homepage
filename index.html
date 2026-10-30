@@ -6,25 +6,10 @@
     <title>TAMTAM STUDY - 방문을 환영합니다</title>
      <!-- 공통 루트 경로 설정 -->
     <!-- 👇 이 스크립트 하나면 경로 고민 끝! -->
-    <script>
-        (function() {
-            const isGitHub = window.location.hostname.includes("github.io");
-            const repoName = "/tamtamstudy_homepage"; // 본인 레포지토리 이름
-            let baseHref = "";
-            if (isGitHub) {
-                baseHref = window.location.origin + repoName + '/';
-            } else {
-                baseHref = '/';
-            }
-            // origin과 repoName, 그리고 최종 합쳐진 주소를 경고창으로 띄워 확인
-            alert("window.location.origin: " + window.location.origin + "\n" +
-                  "repoName: " + repoName + "\n" +
-                  "최종 base 주소: " + baseHref);
-            document.write('<base href="' + baseHref + '">');
-        })();
-    </script>
-    <!-- 외부 스타일시트 연결 -->
-    <link rel="stylesheet" href="/web/css/style.css">
+        <!-- 외부 스타일시트 연결 -->
+    <link id="pagestyle" rel="stylesheet" href="">
+    <script src="./js/common.js"></script>
+ 
 </head>
 <body>
     <div class="main-container">
