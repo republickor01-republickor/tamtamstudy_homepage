@@ -16,9 +16,10 @@
                 document.write('<base href="/">');
             }
             // origin과 repoName, 그리고 최종 합쳐진 주소를 경고창으로 띄워 확인
-        alert("window.location.origin: " + window.location.origin + "\n" +
-              "repoName: " + repoName + "\n" +
-              "최종 base 주소: " + baseHref);
+            alert("window.location.origin: " + window.location.origin + "\n" +
+                  "repoName: " + repoName + "\n" +
+                  "최종 base 주소: " + baseHref);
+            document.write('<base href="' + baseHref + '">');
         })();
     </script>
     <!-- 외부 스타일시트 연결 -->
