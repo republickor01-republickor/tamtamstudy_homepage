@@ -5,18 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탐탐스터디 - 구경하기</title>
     <!-- 외부 스타일시트 연결 (경로가 다를 경우 맞춰서 조정해주세요) -->
-    <script>
-        (function() {
-            const isGitHub = window.location.hostname.includes("github.io");
-            const repoName = "/tamtamstudy_homepage"; // 본인 레포지토리 이름
-            if (isGitHub) {
-                document.write('<base href="' + window.location.origin + repoName + '/">');
-            } else {
-                document.write('<base href="/">');
-            }
-        })();
-    </script>
-    <link rel="stylesheet" href="/web/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/common.js"></script>
 </head>
 <body>
     <div class="explore-container">
@@ -29,8 +19,8 @@
         <div class="button-grid">
             <a href="https://blog.naver.com/tamtamedu" target="_blank" class="grid-btn">📝 탐탐에듀 블로그</a>
             <a href="http://www.youtube.com/@%EC%9D%80%ED%95%98%EC%88%98-k7w" target="_blank" class="grid-btn">📺 은하수 유튜브</a>
-            <a href="/web/index_home/index_home.html" class="grid-btn">탐탐스터디 소개</a>
-            <a href="/web/index_home/index_home01.html" class="grid-btn">✅ tamtamStudy 소개2</a>
+            <a href="web/index_home/index_home.html" class="grid-btn path-link">탐탐스터디 소개</a>
+            <a href="web/index_home/index_home01.html" class="grid-btn path-link">✅ tamtamStudy 소개2</a>
             <a href="#" class="grid-btn disabled">👤 마이페이지 (준비중)</a>
         </div>
 
