@@ -3,19 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>탐탐스터디 - 동적 통합 홈</title>
-    <link id="pagestyle" rel="stylesheet" href="">
-    <script src="./js/common.js"></script>
+    <title>탐탐스터디 - 원페이지 통합 홈</title>
+    
+    <!-- 👇 GitHub Pages 및 로컬 환경 모두 완벽 대응하는 동적 Base 스크립트 -->
+    <script>
+        (function() {
+            const hostname = window.location.hostname;
+            const isGitHub = hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인의 GitHub 저장소 이름
+            
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
+    </script>
+    
     <style>
-        /* 부드러운 스크롤 설정 */
+        /* 공통 초기화 및 폰트 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        /* 원페이지 스크롤을 위한 부드러운 이동 설정 */
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
         
         body {
+            background: linear-gradient(135deg, #1e5d77 0%, #113f52 100%);
+            color: #ffffff;
             display: block;
             margin: 0;
             padding-top: 80px; /* 상단 고정 네비게이션 공간 확보 */
+            min-height: 100vh;
         }
 
         /* 상단 고정 네비게이션 바 */
@@ -24,13 +50,13 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(17, 63, 82, 0.85);
+            background: rgba(17, 63, 82, 0.9);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             padding: 15px 20px;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -41,7 +67,7 @@
         .top-nav a {
             color: #d8f3dc;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
             padding: 6px 14px;
             border-radius: 20px;
@@ -50,31 +76,240 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .top-nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .top-nav a:hover,
+        .top-nav a.active {
+            background: rgba(255, 255, 255, 0.25);
             color: #ffffff;
             transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* 각 섹션 영역 설정 */
+        .top-nav .btn-home {
+            background: rgba(78, 168, 222, 0.3);
+            border-color: #4ea8de;
+            color: #ffffff;
+        }
+
+        .top-nav .btn-home:hover {
+            background: rgba(78, 168, 222, 0.6);
+        }
+
+        /* 각 섹션 영역 설정 (고정 헤더 가려짐 방지) */
         .page-section {
-            min-height: 100vh;
+            min-height: calc(100vh - 80px);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
             box-sizing: border-box;
+            scroll-margin-top: 90px; 
+        }
+
+        /* 1. 메인 홈 컨테이너 스타일 */
+        .main-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 50px 30px;
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .welcome-header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .welcome-header p {
+            font-size: 1.25rem;
+            color: #d8f3dc;
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-explore:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 2. 둘러보기 컨테이너 스타일 (explore.html 기반) */
+        .explore-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .explore-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .explore-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .explore-header p {
+            color: #d8f3dc;
+            font-size: 0.95rem;
+        }
+
+        .button-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .grid-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 15px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .grid-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .grid-btn.disabled {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* 3, 4, 5. 로그인 카드 스타일 (teacherlogin.html 기반) */
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #d8f3dc;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .card .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4ea8de;
+            color: white;
+            border: 1px solid #319795;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-top: 10px;
+        }
+
+        .card .btn:hover {
+            background-color: #319795;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
         }
     </style>
 </head>
 <body>
 
-    <!-- 상단 고정 네비게이션 -->
+    <!-- 상단 고정 네비게이션 바 -->
     <nav class="top-nav">
-        <a href="#section1">메인 홈</a>
-        <a href="#section2">둘러보기</a>
-        <a href="#section3">선생님 로그인</a>
-        <a href="/index.html">← 최상위 메인으로</a>
+        <a href="#section1" class="nav-link active">메인 홈</a>
+        <a href="#section2" class="nav-link">둘러보기</a>
+        <a href="#section3" class="nav-link">선생님 로그인</a>
+        <a href="#section4" class="nav-link">학생 로그인</a>
+        <a href="#section5" class="nav-link">학부모 로그인</a>
+        <a href="index.html" class="btn-home">🏠 메인 페이지로</a>
     </nav>
 
     <!-- 1섹션: 메인 홈 -->
@@ -90,56 +325,148 @@
         </div>
     </section>
 
-    <!-- 2섹션: explore.html 파일을 자동으로 불러와서 채울 공간 -->
+    <!-- 2섹션: 둘러보기 (explore.html 내용 통합) -->
     <section id="section2" class="page-section">
-        <div id="explore-wrapper">
-            <p style="color: #d8f3dc; text-align: center;">둘러보기 페이지를 불러오는 중...</p>
+        <div class="explore-container">
+            <div class="explore-header">
+                <h2>✨ 탐탐스터디 둘러보기</h2>
+                <p>핵심 콘텐츠를 자유롭게 구경해보세요!</p>
+            </div>
+            <div class="button-grid">
+                <a href="https://blog.naver.com/tamtamedu" target="_blank" class="grid-btn">📝 탐탐에듀 블로그</a>
+                <a href="http://www.youtube.com/@%EC%9D%80%ED%95%98%EC%88%98-k7w" target="_blank" class="grid-btn">📺 은하수 유튜브</a>
+                <a href="web/index_home/index_home.html" class="grid-btn">탐탐스터디 소개</a>
+                <a href="web/index_home/index_home01.html" class="grid-btn">✅ tamtamStudy 소개2</a>
+                <a href="#" class="grid-btn disabled">👤 마이페이지 (준비중)</a>
+            </div>
         </div>
     </section>
 
-    <!-- 3섹션: teacher_login.html 파일을 자동으로 불러와서 채울 공간 -->
+    <!-- 3섹션: 선생님 로그인 (teacherlogin.html 내용 통합) -->
     <section id="section3" class="page-section">
-        <div id="login-wrapper">
-            <p style="color: #d8f3dc; text-align: center;">로그인 페이지를 불러오는 중...</p>
+        <div class="card">
+            <h2>Teacher Login</h2>
+            <form id="teacher-login-form">
+                <div class="input-group">
+                    <label for="teacher-email">선생님 이메일</label>
+                    <input type="email" id="teacher-email" required placeholder="example@tamtamstudy.com">
+                </div>
+                <div class="input-group">
+                    <label for="teacher-password">비밀번호</label>
+                    <input type="password" id="teacher-password" required placeholder="비밀번호를 입력하세요">
+                </div>
+                <button type="submit" class="btn">로그인</button>
+            </form>
         </div>
     </section>
 
-    <!-- 다른 HTML 파일을 읽어와서 꽂아넣는 자바스크립트 -->
-    <script>
-        async function loadExternalHTML(url, targetId, selector) {
-            try {
-                const response = await fetch(url);
-                const htmlText = await response.text();
-                
-                // 가져온 HTML 문자열을 분석용 DOM으로 변환
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                
-                // 해당 파일 안에서 원하는 요소(.explore-container 또는 .card 등)만 쏙 뽑아냄
-                const targetElement = doc.querySelector(selector);
-                const targetContainer = document.getElementById(targetId);
-                
-                if (targetElement && targetContainer) {
-                    targetContainer.innerHTML = ''; // "불러오는 중..." 문구 제거
-                    targetContainer.appendChild(targetElement);
-                } else {
-                    targetContainer.innerHTML = '<p style="color: #ff8787;">요소를 찾지 못했습니다.</p>';
-                }
-            } catch (error) {
-                console.error('로드 실패:', error);
-                document.getElementById(targetId).innerHTML = '<p style="color: #ff8787;">파일을 불러오는 중 오류가 발생했습니다.</p>';
-            }
-        }
+    <!-- 4섹션: 학생 로그인 -->
+    <section id="section4" class="page-section">
+        <div class="card">
+            <h2>Student Login</h2>
+            <form onsubmit="return false;">
+                <div class="input-group">
+                    <label>학생 아이디 / 이메일</label>
+                    <input type="text" placeholder="student ID">
+                </div>
+                <div class="input-group">
+                    <label>비밀번호</label>
+                    <input type="password" placeholder="비밀번호 입력">
+                </div>
+                <button type="button" class="btn">로그인</button>
+            </form>
+        </div>
+    </section>
 
-        // 페이지가 열리면 각각의 파일 경로와 가져올 핵심 상자 클래스를 지정해 실행
+    <!-- 5섹션: 학부모 로그인 -->
+    <section id="section5" class="page-section">
+        <div class="card">
+            <h2>Parent Login</h2>
+            <form onsubmit="return false;">
+                <div class="input-group">
+                    <label>학부모 연락처 / 이메일</label>
+                    <input type="text" placeholder="010-0000-0000">
+                </div>
+                <div class="input-group">
+                    <label>비밀번호</label>
+                    <input type="password" placeholder="비밀번호 입력">
+                </div>
+                <button type="button" class="btn">로그인</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 인터랙션 및 부드러운 스크롤 제어 스크립트 -->
+    <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // web/explore.html 파일에서 .explore-container 박스만 가져와서 section2에 넣기
-            loadExternalHTML('../explore.html', 'explore-wrapper', '.explore-container');
-            
-            // web/teacher_login.html 파일에서 .card 박스만 가져와서 section3에 넣기
-            loadExternalHTML('../teacherlogin.html', 'login-wrapper', '.card');
+            // 1. '메인 페이지로' 경로 자동 보정 (세션 및 GitHub Pages 완벽 대응)
+            const homeLinks = document.querySelectorAll('a.btn-home, a[href="/index.html"]');
+            homeLinks.forEach(link => {
+                const pathname = window.location.pathname;
+                if (pathname.includes('/')) {
+                    const firstSegment = pathname.split('/')[1];
+                    if (firstSegment && window.location.hostname.includes('github.io')) {
+                        link.href = `/${firstSegment}/index.html`;
+                    } else {
+                        link.href = '/index.html';
+                    }
+                }
+            });
+
+            // 2. 내부 해시(#) 링크 클릭 시 부드러운 스크롤 이동
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.length > 1) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            const headerOffset = 90;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+
+                            history.pushState(null, null, targetId);
+                        }
+                    }
+                });
+            });
+
+            // 3. 스크롤 위치에 따라 상단 네비게이션 버튼 자동 활성화(Active)
+            const sections = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.top-nav a.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    const hrefAttr = link.getAttribute('href');
+                    if (hrefAttr && hrefAttr.startsWith('#')) {
+                        link.classList.remove('active');
+                        if (hrefAttr === '#' + current) {
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            });
         });
     </script>
 
+    <!-- 선생님 로그인 파이어베이스 연동 모듈 스크립트 (필요시 활성화 가능) -->
+    <script type="module">
+        // 만약 로그인 기능을 이 파일에서 바로 연동하고 싶다면 아래 주석을 풀고 사용하세요.
+        // import { initLogin } from './js/auth.js';
+        // if (typeof initLogin === 'function') initLogin();
+    </script>
 </body>
 </html>
