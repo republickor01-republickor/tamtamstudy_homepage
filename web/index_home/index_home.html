@@ -61,6 +61,20 @@
             });
         });
     </script>
+    <!-- 👇 GitHub Pages 및 로컬 환경 모두 완벽 대응하는 동적 Base 스크립트 -->
+    <script>
+        (function() {
+            const hostname = window.location.hostname;
+            const isGitHub = hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인의 GitHub 저장소 이름
+            
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
+    </script>
 
     <style>
         /* 공통 초기화 및 폰트 설정 */
