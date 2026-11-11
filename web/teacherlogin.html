@@ -1,35 +1,211 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탐탐스터디 - 선생님 로그인</title>
-    <!-- web 폴더 안에서의 올바른 공통 스타일 경로 -->
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
+    <!-- 👇 GitHub 및 로컬 환경 모두 완벽 대응하는 동적 Base 스크립트 -->
+    <script>
+        (function () {
+            const hostname = window.location.hostname;
+            const isGitHub = hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인의 GitHub 저장소 이름
 
-    <div class="card">
-        <h2>Teacher Login</h2>
-        <form id="login-form">
-            <div class="input-group">
-                <label for="email">선생님 이메일</label>
-                <input type="email" id="email" required placeholder="example@tamtamstudy.com">
-            </div>
-            <div class="input-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" required placeholder="비밀번호를 입력하세요">
-            </div>
-            <button type="submit" class="btn">로그인</button>
-            <div id="error-message"></div>
-        </form>
-        <a href="../index.html" class="back-link">← 메인 화면으로 돌아가기</a>
-    </div>
-
-    <!-- 로그인 기능 모듈 실행 스크립트 -->
-    <script type="module">
-        import { initLogin } from './js/auth.js';
-        initLogin();
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
     </script>
+    
+    <!-- 👇 외부 로그인 및 안전 로그아웃 스크립트 파일 연동 (type="module" 설정) -->
+    <script type="module" src="../web/js/auth.js" defer></script>
+
+    <style>
+        /* 공통 초기화 및 폰트 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e5d77 0%, #113f52 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            min-height: 100dvh; /* 모바일 브라우저 주소창 영역 대응 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* 로그인 컨테이너 박스 */
+        .login-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: #d8f3dc;
+            font-size: 0.95rem;
+        }
+
+        /* 입력 폼 스타일 */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            color: #d8f3dc;
+            font-weight: 600;
+            padding-left: 4px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #4ea8de;
+            box-shadow: 0 0 10px rgba(78, 168, 222, 0.3);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 로그인 버튼 */
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            background: #4ea8de;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #3a94cb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 에러 메시지 스타일 */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* 하단 링크 */
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #d8f3dc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 🖥️ [PC 환경 웹 스타일 확장] 화면 너비가 768px 이상일 때 */
+        @media (min-width: 768px) {
+            .login-container {
+                max-width: 480px;
+                padding: 50px 40px;
+            }
+
+            .login-header h2 {
+                font-size: 2.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>👨‍🏫 선생님 로그인</h2>
+            <p>탐탐스터디 교수학습 관리 시스템</p>
+        </div>
+        
+        <!-- 로그인 입력 영역 -->
+        <form id="loginForm" class="login-form">
+            <div class="input-group">
+                <label for="teacher-id">이메일 아이디</label>
+                <input type="email" id="teacher-id" name="username" placeholder="이메일을 입력하세요" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="teacher-pw">비밀번호</label>
+                <input type="password" id="teacher-pw" name="password" placeholder="비밀번호를 입력하세요" required>
+            </div>
+            
+            <div id="errorBox" class="error-message">❌ 아이디 또는 비밀번호가 올바르지 않습니다.</div>
+            
+            <button type="submit" class="btn-submit">로그인</button>
+        </form>
+
+        <a href="./index.html" class="back-link">← 메인 화면으로 돌아가기</a>
+    </div>
 </body>
+
 </html>

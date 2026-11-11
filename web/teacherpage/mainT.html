@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>탐탐스터디 - 선생님 관리자 대시보드</title>
+    
+    <!-- 👇 GitHub 및 로컬 환경 모두 완벽 대응하는 동적 Base 스크립트 -->
+    <script>
+        (function () {
+            const hostname = window.location.hostname;
+            const isGitHub = hostname.includes("github.io");
+            const repoName = "/tamtamstudy_homepage"; // 본인의 GitHub 저장소 이름
+
+            if (isGitHub) {
+                document.write('<base href="' + window.location.origin + repoName + '/">');
+            } else {
+                document.write('<base href="/">');
+            }
+        })();
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 상단 네비게이션 바 */
+        .navbar {
+            background-color: #113f52;
+            color: #ffffff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 1.2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info span {
+            font-size: 0.95rem;
+            color: #d8f3dc;
+        }
+
+        .btn-logout {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: #fa5252;
+        }
+
+        /* 본문 영역 */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .welcome-card h2 {
+            color: #113f52;
+            margin-bottom: 10px;
+        }
+
+        /* 기능별 메뉴 카드 그리드 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 5px solid #113f52;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .menu-card.student {
+            border-top-color: #2b8a3e;
+        }
+
+        .menu-card.message {
+            border-top-color: #1c7ed6;
+        }
+
+        .menu-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .menu-card h3 {
+            color: #113f52;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .menu-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 상단 네비게이션 바 -->
+    <header class="navbar">
+        <h1>탐탐스터디 교수학습 관리 시스템</h1>
+        <div class="user-info">
+            <span><strong id="teacherDisplayName">로딩 중...</strong> 접속 중</span>
+            <button id="logoutBtn" class="btn-logout">로그아웃</button>
+        </div>
+    </header>
+
+    <!-- 메인 대시보드 내용 -->
+    <main class="main-content">
+        <div class="welcome-card">
+            <h2>👋 환영합니다, 선생님!</h2>
+            <p style="color: #666; line-height: 1.6;">
+                이곳은 파이어베이스 인증 보안이 적용된 선생님 전용 관리자 페이지(`mainT.html`)입니다.<br>
+                원하시는 관리 메뉴를 선택하여 학생 입회 등록 및 학부모 문자 발송을 진행해 주세요.
+            </p>
+        </div>
+
+        <!-- 👇 기능 페이지로 넘어가는 카드 네비게이션 영역 -->
+        <div class="menu-grid">
+            <!-- 학생 등록 페이지로 이동 -->
+            <a href="web/teacherpage/student_reg.html" class="menu-card student">
+                <div class="icon">🎓</div>
+                <h3>학생 입회 등록</h3>
+                <p>신규 학생 정보 등록, 기존 학생 검색 및 수정, 반 배정 및 보호자 연동을 관리합니다.</p>
+            </a>
+
+            <!-- 문자 보내기 페이지로 이동 -->
+            <a href="web/teacherpage/message.html" class="menu-card message">
+                <div class="icon">✉️</div>
+                <h3>학부모 문자 발송</h3>
+                <p>수업 안내, 보강 일정, 학습 내용 및 스마트폰 연동 문자 대기열을 관리합니다.</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- 🔒 파이어베이스 인증 체크 및 로그아웃 스크립트 -->
+    <script type="module">
+        import { auth } from '../web/js/firebase.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // 1. 페이지 진입 시 로그인 상태 실시간 감지 (보안 체크)
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                alert('🔒 로그인이 필요한 페이지입니다.');
+                window.location.href = 'web/teacherlogin.html';
+            } else {
+                const displayNameElem = document.getElementById('teacherDisplayName');
+                if (displayNameElem) {
+                    const nameId = user.email ? user.email.split('@')[0] : '선생님';
+                    displayNameElem.textContent = `${nameId} 선생님`;
+                }
+            }
+        });
+
+        // 2. 로그아웃 버튼 기능 연동
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                if (confirm('정말 로그아웃 하시겠습니까?')) {
+                    try {
+                        await signOut(auth);
+                        alert('안전하게 로그아웃되었습니다.');
+                        window.location.href = '../web/teacherlogin.html';
+                    } catch (error) {
+                        console.error("로그아웃 에러:", error);
+                        alert('로그아웃 중 오류가 되었거나 문제가 발생했습니다.');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
+<!----```[cite: 1]
+
+ ---
+
+### 2. 향후 작업 가이드 (학생 등록 및 문자 보내기 페이지 연동)
+
+제공해주신 파이썬 스크립트(`start_student.py`, `message.py`)는 현재 `PyQt` 및 `Tkinter` 기반의 데스크톱 애플리케이션 형태입니다. 만약 이 기능들을 웹 페이지(`student_reg.html`, `message.html`) 상에서 구현하시거나, 혹은 웹 대시보드에서 데스크톱 프로그램으로 유기적으로 연결하시려면 아래 방식을 활용하실 수 있습니다.
+
+1. **웹 화면으로 전환할 경우:**
+   - 파이어베이스 Firestore 데이터베이스는 웹(JavaScript SDK)과 데스크톱(Python SDK)이 **동일한 DB를 공유**하므로, 웹 화면(`student_reg.html`)에서도 자바스크립트를 이용해 동일하게 학생 데이터와 템플릿 데이터를 읽고 쓸 수 있습니다.
+2. **데스크톱 프로그램과 연동할 경우:**
+   - 웹 대시보드(`mainT.html`)에서 상단 메뉴 카드를 클릭했을 때 웹용 서브 페이지로 이동하게 하거나, 데스크톱 런처 형태로 관리 화면을 확장해 나갈 수 있습니다.
+
+다음 단계로 **학생 등록 웹 페이지(`student_reg.html`)** 또는 **문자 보내기 웹 페이지(`message.html`)**의 프론트엔드 UI 구성을 이어서 도와드릴까요? 편하게 말씀해 주세요!
+--> 

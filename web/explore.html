@@ -18,10 +18,8 @@
             }
         })();
     </script>
-
-
     
-    <!-- 👇 둘러보기 페이지(explore.html) 전용 통합 스타일 -->
+    <!-- 👇 둘러보기 페이지(explore.html) 반응형 통합 스타일 -->
     <style>
         /* 공통 초기화 및 폰트 설정 */
         * {
@@ -42,7 +40,7 @@
             padding: 20px;
         }
 
-        /* 둘러보기 페이지 전용 스타일 */
+        /* [모바일 기본] 둘러보기 컨테이너 기본 스타일 */
         .explore-container {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
@@ -52,8 +50,6 @@
             padding: 40px 30px;
             width: 100%;
             max-width: 480px;
-            max-height: 85vh;
-            max-height: 85dvh;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
@@ -77,23 +73,13 @@
             font-size: 0.95rem;
         }
 
+        /* [모바일 기본] 메뉴 버튼 영역 세로 배치 */
         .button-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 12px;
-            overflow-y: auto;
-            padding-right: 4px;
             margin-bottom: 25px;
-            flex-grow: 1;
-        }
-
-        .button-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .button-grid::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
+            width: 100%;
         }
 
         .grid-btn {
@@ -108,20 +94,26 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        /* 은은한 브랜드 포인트 호버 컬러 */
+        .grid-btn.blog:hover { background: rgba(3, 207, 93, 0.25); border-color: rgba(3, 207, 93, 0.5); }
+        .grid-btn.youtube:hover { background: rgba(255, 0, 0, 0.2); border-color: rgba(255, 0, 0, 0.4); }
+        .grid-btn.intro1:hover { background: rgba(58, 180, 242, 0.25); border-color: rgba(58, 180, 242, 0.5); }
+        .grid-btn.intro2:hover { background: rgba(46, 204, 113, 0.25); border-color: rgba(46, 204, 113, 0.5); }
+
         .grid-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .grid-btn.disabled {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -139,6 +131,40 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        /* 🖥️ [PC / 태블릿 환경 웹 스타일 확장] 화면 너비가 768px 이상일 때 */
+        @media (min-width: 768px) {
+            .explore-container {
+                max-width: 760px; /* PC 해상도 맞춤 확장 */
+                padding: 50px 40px;
+            }
+
+            .explore-header {
+                margin-bottom: 35px;
+            }
+
+            .explore-header h2 {
+                font-size: 2.2rem;
+            }
+
+            /* 버튼들을 한눈에 보이게 2열 바둑판(Grid) 형태로 변경 */
+            .button-grid {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 16px;
+                margin-bottom: 35px;
+            }
+
+            /* 버튼 크기 밸런스 조정 */
+            .grid-btn {
+                padding: 18px 20px;
+                font-size: 1.05rem;
+            }
+            
+            /* 홀수 개인 마이페이지(준비중) 버튼을 하단 가로 전체로 채워 균형을 맞춤 */
+            .grid-btn.full-width {
+                grid-column: span 2;
+            }
+        }
     </style>
 </head>
 <body>
@@ -150,11 +176,11 @@
         
         <!-- 메뉴 버튼 영역 -->
         <div class="button-grid">
-            <a href="https://blog.naver.com/tamtamedu" target="_blank" class="grid-btn">📝 탐탐에듀 블로그</a>
-            <a href="http://www.youtube.com/@%EC%9D%80%ED%95%98%EC%88%98-k7w" target="_blank" class="grid-btn">📺 은하수 유튜브</a>
-            <a href="web/index_home/index_home.html" class="grid-btn">탐탐스터디 소개</a>
-            <a href="web/index_home/index_home01.html" class="grid-btn">✅ tamtamStudy 소개2</a>
-            <a href="#" class="grid-btn disabled">👤 마이페이지 (준비중)</a>
+            <a href="https://naver.com" target="_blank" class="grid-btn blog">📝 탐탐에듀 블로그</a>
+            <a href="http://youtube.com" target="_blank" class="grid-btn youtube">📺 은하수 유튜브</a>
+            <a href="web/index_home/index_home.html" class="grid-btn intro1">탐탐스터디 소개</a>
+            <a href="web/index_home/index_home01.html" class="grid-btn intro2">✅ tamtamStudy 소개2</a>
+            <a href="#" class="grid-btn disabled full-width">👤 마이페이지 (준비중)</a>
         </div>
 
         <a href="./index.html" class="back-link">← 메인 화면으로 돌아가기</a>
