@@ -35,7 +35,7 @@ export function initLogin() {
         window.location.href =
           window.location.origin + repoName + "./web/teacherpage/mainT.html";
       } else {
-        window.location.href = "/web/teacherpage/mainT.html";
+        window.location.href = "./web/teacherpage/mainT.html";
       }
     } catch (error) {
       console.error("로그인 에러:", error);
