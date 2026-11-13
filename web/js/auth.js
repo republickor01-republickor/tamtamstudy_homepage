@@ -29,7 +29,7 @@ export function initLogin() {
       // ✅ 수정된 안전한 이동 코드
       const hostname = window.location.hostname;
       const isGitHub = hostname.includes("github.io");
-      const repoName = "/tamtamstudy_homepage"; // 본인의 실제 저장소 이름
+      const repoName = "/tamtamstudy_homepage/"; // 본인의 실제 저장소 이름
 
       if (isGitHub) {
         window.location.href =
