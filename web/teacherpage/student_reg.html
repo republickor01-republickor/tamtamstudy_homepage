@@ -353,8 +353,8 @@
 
     <!-- 🔒 파이어베이스 연동 및 모델 스크립트 -->
     <script type="module">
-        import { auth, db } from '../js/firebase.js';
-        import { Student, Parent, ClassInfo, StudentClassRel, StudentParentRel } from '../js/models.js';
+        import { auth, db } from '../web/js/firebase.js';
+        import { Student, Parent, ClassInfo, StudentClassRel, StudentParentRel } from '../web/js/models.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { collection, getDocs, addDoc, doc, setDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
