@@ -155,3 +155,62 @@ export class StudentParentRel {
         };
     }
 }
+// 6. 학년·과목 분류 카탈로그 모델 클래스
+// - 기본은 학년별(H1은 대수·미적1 포함 등)로 묶고, 미적2·기하·확률과 통계는 별도 과목으로 관리합니다.
+export class GradeSubjectCatalog {
+    constructor(entries = null) {
+        this.entries = Array.isArray(entries) && entries.length > 0
+            ? entries
+            : GradeSubjectCatalog.getDefaultEntries();
+    }
+
+    static getDefaultEntries() {
+        return [
+            // 초등 학년별 기본 과목
+            { gradeCode: "C1", gradeLabel: "초등1", subjectCode: "Math_C1", subjectLabel: "초등 1(학년별)", collectionName: "Math_C1", category: "grade", includedNotes: "" },
+            { gradeCode: "C2", gradeLabel: "초등2", subjectCode: "Math_C2", subjectLabel: "초등 2(학년별)", collectionName: "Math_C2", category: "grade", includedNotes: "" },
+            { gradeCode: "C3", gradeLabel: "초등3", subjectCode: "Math_C3", subjectLabel: "초등 3(학년별)", collectionName: "Math_C3", category: "grade", includedNotes: "" },
+            { gradeCode: "C4", gradeLabel: "초등4", subjectCode: "Math_C4", subjectLabel: "초등 4(학년별)", collectionName: "Math_C4", category: "grade", includedNotes: "" },
+            { gradeCode: "C5", gradeLabel: "초등5", subjectCode: "Math_C5", subjectLabel: "초등 5(학년별)", collectionName: "Math_C5", category: "grade", includedNotes: "" },
+            { gradeCode: "C6", gradeLabel: "초등6", subjectCode: "Math_C6", subjectLabel: "초등 6(학년별)", collectionName: "Math_C6", category: "grade", includedNotes: "" },
+            // 중등 학년별 기본 과목
+            { gradeCode: "M1", gradeLabel: "중1", subjectCode: "Math_M1", subjectLabel: "중1 수학 (학년별)", collectionName: "Math_M1", category: "grade", includedNotes: "" },
+            { gradeCode: "M2", gradeLabel: "중2", subjectCode: "Math_M2", subjectLabel: "중2 수학 (학년별)", collectionName: "Math_M2", category: "grade", includedNotes: "" },
+            { gradeCode: "M3", gradeLabel: "중3", subjectCode: "Math_M3", subjectLabel: "중3 수학 (학년별)", collectionName: "Math_M3", category: "grade", includedNotes: "" },
+
+            // 고등 학년별 기본 과목 (H1은 대수·미적1 포함)
+            { gradeCode: "H1", gradeLabel: "고1(H1)", subjectCode: "Math_H1", subjectLabel: "H1 수학 (공통수학 1,2)", collectionName: "Math_H1", category: "grade", includedNotes: "대수, 미적1 포함" },
+            { gradeCode: "H2", gradeLabel: "고2(H2)", subjectCode: "Math_H2", subjectLabel: "H2 수학 (대수,미적1)", collectionName: "Math_H2", category: "grade", includedNotes: "" },
+
+            // 별도 분리 과목: 미적2 · 기하 · 확률과 통계
+            { gradeCode: "H", gradeLabel: "고등 선택", subjectCode: "Math_H_ADV_CAL", subjectLabel: "미적2", collectionName: "Math_H_ADV_CAL", category: "subject", includedNotes: "미적분2" },
+            { gradeCode: "H", gradeLabel: "고등 선택", subjectCode: "Math_Sheet20", subjectLabel: "기하", collectionName: "Math_Sheet20", category: "subject", includedNotes: "기하" },
+            { gradeCode: "H", gradeLabel: "고등 선택", subjectCode: "Math_H_STAT", subjectLabel: "확률과 통계", collectionName: "Math_H_STAT", category: "subject", includedNotes: "확룔과 통계" }
+        ];
+    }
+
+    // 학년 필터에 맞는 항목 조회 (예: "H1", "H", 또는 전체 "")
+    getByGrade(gradeCode = "") {
+        if (!gradeCode) return [...this.entries];
+        if (gradeCode === "H") {
+            return this.entries.filter((e) => e.gradeCode.startsWith("H"));
+        }
+        return this.entries.filter((e) => e.gradeCode === gradeCode);
+    }
+
+    // collectionName 또는 subjectCode로 단건 조회
+    findByCollection(collectionName) {
+        return this.entries.find((e) => e.collectionName === collectionName || e.subjectCode === collectionName) || null;
+    }
+
+    static fromDict(data = {}) {
+        const list = Array.isArray(data.entries) ? data.entries : null;
+        return new GradeSubjectCatalog(list);
+    }
+
+    toDict() {
+        return {
+            entries: this.entries.map((e) => ({ ...e }))
+        };
+    }
+}
